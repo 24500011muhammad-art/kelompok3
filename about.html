@@ -1,113 +1,812 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tentang Kelompok</title>
-    <style>
-        :root {
-            --color-bg: #0f172a;
-            --color-card: #1e293b;
-            --color-accent: #38bdf8;
-            --color-text: #e2e8f0;
-            --color-muted: #94a3b8;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tentang DokterApps - Menu Login Pembeli</title>
+<meta name="description" content="Kenali fitur lengkap Menu Login Pembeli DokterApps: onboarding, masuk, daftar, lupa password, lapor masalah, dan validasi data.">
+<style>
+/* ============ 1. TOKEN & RESET ============ */
+:root{
+  --bg:#f6f9fd; --surface:#ffffff; --surface-2:#eaf2fb;
+  --text:#0a2540; --muted:#54657a; --line:#d6e2f0;
+  --primary:#0066cc; --primary-2:#00a8a8; --accent:#f59e0b;
+  --ok:#16a34a; --err:#dc2626;
+  --radius:18px; --shadow:0 10px 30px rgba(10,37,64,.08);
+  --grad:linear-gradient(135deg,#0066cc 0%,#00a8a8 100%);
+}
+[data-theme="dark"]{
+  --bg:#0b1624; --surface:#122236; --surface-2:#173049;
+  --text:#e8f1fb; --muted:#9db2c8; --line:#25405c;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:background .3s,color .3s}
+img,svg{max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,select,textarea{font:inherit;color:inherit}
+.container{width:min(1120px,92%);margin-inline:auto}
+section{padding:72px 0}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);background:var(--surface-2);padding:6px 14px;border-radius:99px;margin-bottom:14px}
+.section-title{font-size:clamp(1.6rem,3.5vw,2.3rem);line-height:1.2;margin-bottom:10px}
+.section-sub{color:var(--muted);max-width:640px;margin-bottom:36px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:99px;font-weight:600;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 8px 20px rgba(0,102,204,.3)}
+.btn-ghost{border:2px solid var(--line);background:var(--surface)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+/* ============ 2. NAVBAR ============ */
+.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .container{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem}
+.logo-mark{width:34px;height:34px;border-radius:10px;background:var(--grad);display:grid;place-items:center;color:#fff;font-size:1.1rem}
+.nav-links{display:flex;gap:6px;list-style:none}
+.nav-links a{padding:8px 14px;border-radius:99px;color:var(--muted);font-weight:500;font-size:.94rem;transition:.2s}
+.nav-links a:hover,.nav-links a.active{background:var(--surface-2);color:var(--primary)}
+.nav-tools{display:flex;gap:8px;align-items:center}
+.icon-btn{width:40px;height:40px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:1.05rem}
+.menu-toggle{display:none}
+@media(max-width:820px){
+  .menu-toggle{display:grid}
+  .nav-links{position:absolute;top:66px;left:0;right:0;flex-direction:column;background:var(--surface);padding:12px 4%;border-bottom:1px solid var(--line);display:none}
+  .nav-links.open{display:flex}
+}
 
-        body {
-            font-family: "Segoe UI", Arial, sans-serif;
-            background-color: var(--color-bg);
-            color: var(--color-text);
-            line-height: 1.6;
-        }
+/* ============ 3. HERO ============ */
+.hero{padding:80px 0 56px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;width:520px;height:520px;right:-140px;top:-160px;background:var(--grad);opacity:.14;border-radius:50%;filter:blur(20px)}
+.hero .container{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.12;margin-bottom:16px}
+.hero h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);font-size:1.08rem;margin-bottom:26px;max-width:520px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.phone{width:min(290px,80%);margin-inline:auto;background:var(--surface);border:8px solid var(--text);border-radius:36px;padding:22px 18px;box-shadow:var(--shadow);animation:float 5s ease-in-out infinite}
+.phone h4{font-size:1.1rem;margin-bottom:4px}
+.phone small{color:var(--muted)}
+.phone .fake{height:38px;border-radius:10px;background:var(--surface-2);margin:10px 0}
+.phone .fake.btn-fake{background:var(--grad)}
+@keyframes float{50%{transform:translateY(-12px)}}
+@media(max-width:820px){.hero .container{grid-template-columns:1fr}}
 
-        main {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 48px 20px;
-        }
+/* ============ 4. STATS ============ */
+.stats{padding:0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:-10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;text-align:center;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:2rem;color:var(--primary)}
+.stat span{color:var(--muted);font-size:.9rem}
+@media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
 
-        h1 {
-            color: var(--color-accent);
-            margin-bottom: 8px;
-        }
+/* ============ 5. FITUR ============ */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.chip{padding:8px 18px;border-radius:99px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:.9rem;transition:.2s}
+.chip.active{background:var(--grad);color:#fff;border-color:transparent}
+.search{width:100%;max-width:360px;padding:11px 18px;border-radius:99px;border:1px solid var(--line);background:var(--surface);margin-bottom:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;text-align:left;transition:transform .25s,box-shadow .25s,border-color .25s;display:flex;flex-direction:column;gap:8px}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--primary)}
+.card .ico{width:50px;height:50px;border-radius:14px;background:var(--surface-2);display:grid;place-items:center;font-size:1.6rem}
+.card .uc{font-size:.74rem;font-weight:700;color:var(--primary);letter-spacing:.08em}
+.card h3{font-size:1.08rem}
+.card p{color:var(--muted);font-size:.92rem}
+.card.hidden{display:none}
+.empty{display:none;color:var(--muted);padding:20px 0}
 
-        .tagline {
-            color: var(--color-muted);
-            margin-bottom: 32px;
-        }
+/* ============ 6. MODAL ============ */
+.modal{position:fixed;inset:0;background:rgba(5,15,30,.6);display:none;place-items:center;z-index:100;padding:16px}
+.modal.open{display:grid}
+.modal-box{background:var(--surface);border-radius:var(--radius);padding:30px;width:min(520px,100%);max-height:88vh;overflow:auto;position:relative;animation:pop .25s}
+@keyframes pop{from{transform:scale(.92);opacity:0}}
+.modal-box h3{margin-bottom:6px;font-size:1.3rem}
+.modal-box ul{margin:12px 0 0 20px;color:var(--muted)}
+.modal-box li{margin-bottom:6px}
+.modal-close{position:absolute;top:14px;right:14px}
+.modal-uc{color:var(--primary);font-weight:700;font-size:.78rem}
+.modal-desc{color:var(--muted)}
+.modal-go{margin-top:18px}
 
-        .card {
-            background-color: var(--color-card);
-            border-left: 4px solid var(--color-accent);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 16px;
-        }
+/* ============ 7. DEMO INTERAKTIF ============ */
+.demo-section{background:var(--surface-2)}
+.demo{display:grid;grid-template-columns:260px 1fr;gap:24px}
+.demo-tabs{display:flex;flex-direction:column;gap:8px}
+.tab{padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--surface);text-align:left;font-weight:600;transition:.2s}
+.tab.active{background:var(--grad);color:#fff;border-color:transparent}
+.demo-panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+.pane{display:none}.pane.active{display:block}
+.note{font-size:.82rem;color:var(--muted);background:var(--surface-2);padding:10px 14px;border-radius:10px;margin-bottom:18px}
+.field{margin-bottom:14px}
+.field label{display:block;font-weight:600;font-size:.88rem;margin-bottom:6px}
+.input-wrap{position:relative}
+.input-wrap input,.field input,.field select,.field textarea{width:100%;padding:12px 14px;border-radius:12px;border:2px solid var(--line);background:var(--bg);transition:border-color .2s}
+.input-wrap input{padding-right:48px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--primary)}
+.field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--err)}
+.field.valid input{border-color:var(--ok)}
+.eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;font-size:1.1rem}
+.eye:hover{background:var(--surface-2)}
+.err-msg{display:none;color:var(--err);font-size:.8rem;margin-top:4px}
+.field.invalid .err-msg{display:block}
+.meter{height:6px;border-radius:99px;background:var(--line);margin-top:8px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;transition:width .3s,background .3s}
+.meter-label{font-size:.78rem;color:var(--muted);margin-top:4px}
+.btn-block{width:100%;justify-content:center;margin-top:6px}
+.btn-google{width:100%;justify-content:center;border:2px solid var(--line);background:var(--surface);margin-top:10px}
+.divider{text-align:center;color:var(--muted);font-size:.82rem;margin:14px 0 4px}
+.result{display:none;margin-top:16px;padding:14px 16px;border-radius:12px;font-size:.92rem}
+.result.show{display:block}
+.result.ok{background:#dcfce7;color:#14532d}
+.result.bad{background:#fee2e2;color:#7f1d1d}
+@media(max-width:820px){.demo{grid-template-columns:1fr}.demo-tabs{flex-direction:row;overflow-x:auto}.tab{white-space:nowrap}}
 
-        .card h2 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-        }
+/* ============ 8. ONBOARDING SLIDER ============ */
+.slider{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.slides{display:flex;transition:transform .5s ease}
+.slide{min-width:100%;padding:48px 28px;text-align:center}
+.slide .big{font-size:4rem;margin-bottom:10px}
+.slide p{color:var(--muted);max-width:480px;margin:8px auto 0}
+.slider-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-top:1px solid var(--line)}
+.dots{display:flex;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--line);transition:.3s}
+.dot.active{background:var(--primary);width:28px;border-radius:99px}
 
-        .card ul {
-            padding-left: 20px;
-        }
+/* ============ 9. ALUR (STEPPER) ============ */
+.alur-section{background:var(--surface-2)}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-top:28px;counter-reset:s}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;position:relative;counter-increment:s}
+.step::before{content:counter(s);position:absolute;top:-14px;left:18px;width:30px;height:30px;border-radius:50%;background:var(--grad);color:#fff;font-weight:700;display:grid;place-items:center}
+.step h4{margin:6px 0 4px;font-size:1rem}
+.step p{color:var(--muted);font-size:.88rem}
 
-        .back-link {
-            display: inline-block;
-            margin-top: 24px;
-            color: var(--color-accent);
-            text-decoration: none;
-        }
+/* ============ 10. ARSITEKTUR ============ */
+.bce{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.layer{border-radius:var(--radius);padding:22px;border:2px solid}
+.layer.b{background:#dbeafe;border-color:#3b82f6;color:#0a2540}
+.layer.c{background:#fef3c7;border-color:#f59e0b;color:#0a2540}
+.layer.e{background:#dcfce7;border-color:#22c55e;color:#0a2540}
+.layer h4{margin-bottom:8px}
+.layer ul{list-style:none;font-size:.9rem}
+.layer li::before{content:"▸ ";opacity:.6}
+@media(max-width:700px){.bce{grid-template-columns:1fr}}
 
-        .back-link:hover {
-            text-decoration: underline;
-        }
-    </style>
+/* ============ 11. KEAMANAN ============ */
+.keamanan-section{background:var(--surface-2)}
+.sec-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.sec-item{display:flex;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.sec-item span{font-size:1.6rem}
+.sec-item p{color:var(--muted);font-size:.9rem}
+
+/* ============ 12. FAQ ============ */
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:10px}
+.faq summary{font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+.faq summary::after{content:"+";font-size:1.3rem;color:var(--primary)}
+.faq details[open] summary::after{content:"−"}
+.faq p{color:var(--muted);margin-top:10px}
+
+/* ============ 13. FOOTER & TOAST ============ */
+footer{background:var(--text);color:#cfe0f2;padding:36px 0;text-align:center;font-size:.9rem}
+[data-theme="dark"] footer{background:#07101b}
+.to-top{position:fixed;right:20px;bottom:20px;width:46px;height:46px;border-radius:50%;background:var(--grad);color:#fff;font-size:1.2rem;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.3s}
+.to-top.show{opacity:1;pointer-events:auto}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,120px);background:var(--text);color:var(--bg);padding:12px 22px;border-radius:99px;transition:transform .35s;z-index:200;font-size:.9rem}
+.toast.show{transform:translate(-50%,0)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
 </head>
-
 <body>
-    <main>
-        <h1>Tentang Kelompok Kami</h1>
-        <p class="tagline">Satu repositori, banyak peran, satu tujuan.</p>
 
-        <section class="card">
-            <h2>Siapa Kami</h2>
-            <p>
-                Kami Kelompok 3, mahasiswa D3 Teknologi Informasi Tiga
-                Serangkai University. Seperti branch dalam Git, setiap
-                anggota punya peran sendiri, lalu karya kami digabung
-                menjadi satu website lewat Pull Request.
-            </p>
-        </section>
+<!-- ============ NAVBAR ============ -->
+<header class="nav">
+  <div class="container">
+    <a href="#top" class="logo"><span class="logo-mark">✚</span> DokterApps</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#fitur">Fitur</a></li>
+      <li><a href="#demo">Coba Demo</a></li>
+      <li><a href="#pengenalan">Pengenalan</a></li>
+      <li><a href="#alur">Alur</a></li>
+      <li><a href="#arsitektur">Arsitektur</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-tools">
+      <button class="icon-btn" id="themeBtn" aria-label="Ganti tema">🌙</button>
+      <button class="icon-btn menu-toggle" id="menuBtn" aria-label="Buka menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+    </div>
+  </div>
+</header>
 
-        <section class="card">
-            <h2>Visi</h2>
-            <p>
-                Menjadi tim yang rapi dalam berkode, terbuka dalam
-                berdiskusi, dan saling meninjau agar setiap kontribusi
-                berdampak bagi proyek bersama.
-            </p>
-        </section>
+<main id="top">
 
-        <section class="card">
-            <h2>Yang Kami Pelajari</h2>
-            <ul>
-                <li>HTML dan CSS dasar</li>
-                <li>Git: commit, branch, dan merge</li>
-                <li>GitHub: Pull Request dan code review</li>
-            </ul>
-        </section>
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container">
+    <div>
+      <span class="eyebrow">Menu Login Pembeli</span>
+      <h1>Masuk ke layanan kesehatan, <span>aman dan tanpa ribet.</span></h1>
+      <p>DokterApps memberi pembeli pintu masuk yang jelas: kenali aplikasi, daftar, masuk dengan password atau Google, pulihkan akun, dan laporkan kendala teknis.</p>
+      <div class="hero-cta">
+        <a href="#demo" class="btn btn-primary">Coba Demo Interaktif →</a>
+        <a href="#fitur" class="btn btn-ghost">Lihat 8 Fitur</a>
+      </div>
+    </div>
+    <div class="phone" aria-hidden="true">
+      <h4>Selamat datang 👋</h4><small>Masuk ke DokterApps</small>
+      <div class="fake"></div><div class="fake"></div>
+      <div class="fake btn-fake"></div>
+      <small>Belum punya akun? Daftar</small>
+    </div>
+  </div>
+</section>
 
-        <a class="back-link" href="index.html">Kembali ke Beranda</a>
-    </main>
+<!-- ============ STATISTIK ============ -->
+<section class="stats">
+  <div class="container stats-grid">
+    <div class="stat"><b data-count="8">0</b><span>Fitur (Use Case)</span></div>
+    <div class="stat"><b data-count="4">0</b><span>Layar utama</span></div>
+    <div class="stat"><b data-count="3">0</b><span>Lapisan arsitektur</span></div>
+    <div class="stat"><b data-count="2">0</b><span>Cara masuk</span></div>
+  </div>
+</section>
+
+<!-- ============ FITUR ============ -->
+<section id="fitur">
+  <div class="container">
+    <span class="eyebrow">Fitur Lengkap</span>
+    <h2 class="section-title">Semua yang ada di Menu Login Pembeli</h2>
+    <p class="section-sub">Delapan fitur yang saling terhubung. Klik kartu untuk melihat detail, atau gunakan filter dan pencarian.</p>
+
+    <input class="search" id="search" type="search" placeholder="Cari fitur, mis. password..." aria-label="Cari fitur">
+    <div class="filters" id="filters">
+      <button class="chip active" data-f="all">Semua</button>
+      <button class="chip" data-f="akses">Akses Akun</button>
+      <button class="chip" data-f="bantuan">Bantuan</button>
+      <button class="chip" data-f="pendukung">Pendukung</button>
+    </div>
+
+    <div class="grid" id="featureGrid"></div>
+    <p class="empty" id="empty">Tidak ada fitur yang cocok dengan pencarian.</p>
+  </div>
+</section>
+
+<!-- ============ DEMO ============ -->
+<section id="demo" class="demo-section">
+  <div class="container">
+    <span class="eyebrow">Coba Langsung</span>
+    <h2 class="section-title">Demo interaktif</h2>
+    <p class="section-sub">Simulasi di browser saja. Tidak ada data yang dikirim atau disimpan. Validasi bekerja seperti pada UC-08.</p>
+
+    <div class="demo">
+      <div class="demo-tabs" role="tablist" aria-label="Pilih simulasi">
+        <button class="tab active" data-pane="p-masuk" role="tab" aria-selected="true">🔑 Masuk</button>
+        <button class="tab" data-pane="p-daftar" role="tab" aria-selected="false">📝 Daftar</button>
+        <button class="tab" data-pane="p-lupa" role="tab" aria-selected="false">📧 Lupa Password</button>
+        <button class="tab" data-pane="p-lapor" role="tab" aria-selected="false">🛠️ Laporkan Masalah</button>
+      </div>
+
+      <div class="demo-panel">
+        <!-- MASUK -->
+        <form class="pane active" id="p-masuk" novalidate>
+          <div class="note">Demo: gunakan <b>demo@dokterapps.id</b> dengan password <b>Demo12345</b> untuk berhasil.</div>
+          <div class="field"><label for="m-kontak">Telepon / Email</label>
+            <input id="m-kontak" name="kontak" autocomplete="off" placeholder="08xxxxxxxxxx atau nama@email.com">
+            <span class="err-msg"></span></div>
+          <div class="field"><label for="m-pass">Password</label>
+            <div class="input-wrap"><input id="m-pass" type="password" name="password" autocomplete="off" placeholder="Password Anda">
+              <button type="button" class="eye" data-eye="m-pass" aria-label="Tampilkan password">👁️</button></div>
+            <span class="err-msg"></span></div>
+          <button class="btn btn-primary btn-block" type="submit">MASUK</button>
+          <div class="divider">atau</div>
+          <button class="btn btn-google" type="button" id="googleBtn">Masuk dengan Google</button>
+          <div class="result" id="m-result" role="status"></div>
+        </form>
+
+        <!-- DAFTAR -->
+        <form class="pane" id="p-daftar" novalidate>
+          <div class="field"><label for="d-nama">Nama Lengkap</label><input id="d-nama" name="nama" autocomplete="off"><span class="err-msg"></span></div>
+          <div class="field"><label for="d-email">Email</label><input id="d-email" name="email" autocomplete="off" placeholder="nama@email.com"><span class="err-msg"></span></div>
+          <div class="field"><label for="d-tel">Telepon</label><input id="d-tel" name="telepon" autocomplete="off" placeholder="08xxxxxxxxxx"><span class="err-msg"></span></div>
+          <div class="field"><label for="d-pass">Password</label>
+            <div class="input-wrap"><input id="d-pass" type="password" name="password" autocomplete="off">
+              <button type="button" class="eye" data-eye="d-pass" aria-label="Tampilkan password">👁️</button></div>
+            <div class="meter"><i id="meterBar"></i></div><div class="meter-label" id="meterLabel">Kekuatan password</div>
+            <span class="err-msg"></span></div>
+          <div class="field"><label for="d-konf">Konfirmasi Password</label>
+            <div class="input-wrap"><input id="d-konf" type="password" name="konfirmasi" autocomplete="off">
+              <button type="button" class="eye" data-eye="d-konf" aria-label="Tampilkan password">👁️</button></div>
+            <span class="err-msg"></span></div>
+          <button class="btn btn-primary btn-block" type="submit">DAFTAR</button>
+          <div class="result" id="d-result" role="status"></div>
+        </form>
+
+        <!-- LUPA PASSWORD -->
+        <form class="pane" id="p-lupa" novalidate>
+          <div class="note">Pesan konfirmasi sengaja selalu sama, apa pun hasil pencarian akun, agar tidak membocorkan siapa yang terdaftar.</div>
+          <div class="field"><label for="l-kontak">Telepon / Email terdaftar</label>
+            <input id="l-kontak" name="kontak" autocomplete="off"><span class="err-msg"></span></div>
+          <button class="btn btn-primary btn-block" type="submit">KIRIM TAUTAN RESET</button>
+          <div class="result" id="l-result" role="status"></div>
+        </form>
+
+        <!-- LAPOR -->
+        <form class="pane" id="p-lapor" novalidate>
+          <div class="field"><label for="r-kontak">Kontak</label><input id="r-kontak" name="kontak" autocomplete="off"><span class="err-msg"></span></div>
+          <div class="field"><label for="r-jenis">Jenis Masalah</label>
+            <select id="r-jenis" name="jenis"><option value="">Pilih jenis masalah</option><option>Tidak bisa masuk</option><option>Aplikasi tertutup sendiri</option><option>Tampilan bermasalah</option><option>Lainnya</option></select>
+            <span class="err-msg"></span></div>
+          <div class="field"><label for="r-desk">Deskripsi</label><textarea id="r-desk" name="deskripsi" rows="4"></textarea><span class="err-msg"></span></div>
+          <button class="btn btn-primary btn-block" type="submit">KIRIM LAPORAN</button>
+          <div class="result" id="r-result" role="status"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PENGENALAN ============ -->
+<section id="pengenalan">
+  <div class="container">
+    <span class="eyebrow">UC-01</span>
+    <h2 class="section-title">Pengenalan aplikasi</h2>
+    <p class="section-sub">Geser layar untuk mengenal DokterApps sebelum masuk. Pembeli bisa langsung memilih LOGIN, DAFTAR, atau Skip.</p>
+
+    <div class="slider" id="slider">
+      <div class="slides" id="slides">
+        <div class="slide"><div class="big">🩺</div><h3>Konsultasi dokter</h3><p>Terhubung dengan tenaga kesehatan dari mana saja.</p></div>
+        <div class="slide"><div class="big">💊</div><h3>Beli kebutuhan kesehatan</h3><p>Pesan produk kesehatan dengan alur yang sederhana.</p></div>
+        <div class="slide"><div class="big">🔐</div><h3>Akun Anda terlindungi</h3><p>Masuk dengan password atau Google, lalu mulai.</p></div>
+      </div>
+      <div class="slider-bar">
+        <button class="btn btn-ghost" id="prev">← Sebelumnya</button>
+        <div class="dots" id="dots"></div>
+        <button class="btn btn-primary" id="next">Berikutnya →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ALUR ============ -->
+<section id="alur" class="alur-section">
+  <div class="container">
+    <span class="eyebrow">Alur Masuk</span>
+    <h2 class="section-title">Dari buka aplikasi sampai layar utama</h2>
+    <p class="section-sub">Urutan yang digambarkan pada Activity dan Sequence Diagram.</p>
+    <div class="flow">
+      <div class="step"><h4>Buka aplikasi</h4><p>Onboarding tampil, pembeli memilih LOGIN, DAFTAR, atau Skip.</p></div>
+      <div class="step"><h4>Isi form</h4><p>Telepon/email dan password, dengan ikon mata untuk melihat password.</p></div>
+      <div class="step"><h4>Validasi data</h4><p>Kolom wajib, format, dan kecocokan konfirmasi diperiksa.</p></div>
+      <div class="step"><h4>Cari akun</h4><p>Sistem mencari akun dan mencocokkan password dengan hash.</p></div>
+      <div class="step"><h4>Buat sesi</h4><p>Token sesi dibuat dengan waktu kedaluwarsa.</p></div>
+      <div class="step"><h4>Layar utama</h4><p>Pembeli masuk dan mulai memakai aplikasi.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ARSITEKTUR ============ -->
+<section id="arsitektur">
+  <div class="container">
+    <span class="eyebrow">Arsitektur</span>
+    <h2 class="section-title">Pola Boundary - Control - Entity</h2>
+    <p class="section-sub">Tanggung jawab dipisah supaya kode rapi, mudah diuji, dan mudah dikembangkan.</p>
+    <div class="bce">
+      <div class="layer b"><h4>Boundary (tampilan)</h4><ul><li>HalamanOnboarding</li><li>HalamanSignIn</li><li>HalamanSignUp</li><li>HalamanLupaPassword</li><li>HalamanLaporMasalah</li></ul></div>
+      <div class="layer c"><h4>Control (logika)</h4><ul><li>KontrolAutentikasi</li><li>KontrolLaporan</li><li>validasiData() dan validasiLaporan()</li></ul></div>
+      <div class="layer e"><h4>Entity (data)</h4><ul><li>AkunPembeli</li><li>Sesi</li><li>TautanReset</li><li>LaporanMasalah</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KEAMANAN ============ -->
+<section class="keamanan-section">
+  <div class="container">
+    <span class="eyebrow">Keamanan</span>
+    <h2 class="section-title">Prinsip yang dijaga</h2>
+    <p class="section-sub">Beberapa keputusan desain yang terlihat pada diagram.</p>
+    <div class="sec-list">
+      <div class="sec-item"><span>🔒</span><div><b>Password di-hash</b><p>Yang disimpan adalah password_hash, bukan password asli.</p></div></div>
+      <div class="sec-item"><span>🙈</span><div><b>Pesan galat umum</b><p>Gagal masuk tidak menyebut apakah akun atau password yang salah.</p></div></div>
+      <div class="sec-item"><span>⏳</span><div><b>Sesi dan tautan kedaluwarsa</b><p>Token sesi dan tautan reset punya batas waktu; tautan sekali pakai.</p></div></div>
+      <div class="sec-item"><span>✉️</span><div><b>Konfirmasi netral</b><p>Lupa password memberi pesan sama untuk semua kasus.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="container faq">
+    <span class="eyebrow">FAQ</span>
+    <h2 class="section-title">Pertanyaan umum</h2>
+    <p class="section-sub">Jawaban singkat seputar menu login.</p>
+    <details><summary>Apakah saya wajib punya akun untuk melihat pengenalan?</summary><p>Tidak. Pengenalan aplikasi (UC-01) bisa dilihat sebelum masuk atau daftar.</p></details>
+    <details><summary>Bagaimana jika saya masuk dengan Google tetapi belum punya akun?</summary><p>Akun pembeli baru dibuat otomatis dari nama dan email Google, tanpa password_hash.</p></details>
+    <details><summary>Mengapa pesan gagal masuk tidak spesifik?</summary><p>Agar orang lain tidak bisa menebak apakah suatu email atau telepon sudah terdaftar.</p></details>
+    <details><summary>Apa yang terjadi pada laporan masalah teknis?</summary><p>Laporan disimpan dengan status Baru beserta waktu kirim, lalu pembeli melihat konfirmasi terkirim.</p></details>
+    <details><summary>Apakah ikon mata mengubah isi password?</summary><p>Tidak. UC-07 hanya mengubah tampilan, nilai password tetap sama.</p></details>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">© <span id="year"></span> DokterApps · Menu Login Pembeli · Halaman Tentang</div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="Kembali ke atas">↑</button>
+<div class="toast" id="toast" role="status"></div>
+
+<!-- ============ MODAL DETAIL FITUR ============ -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="modal-box">
+    <button class="icon-btn modal-close" id="mClose" aria-label="Tutup">✕</button>
+    <div class="modal-uc" id="mUc"></div>
+    <h3 id="mTitle"></h3>
+    <p class="modal-desc" id="mDesc"></p>
+    <ul id="mList"></ul>
+    <a href="#demo" class="btn btn-primary modal-go" id="mGo">Coba di demo</a>
+  </div>
+</div>
+
+<script>
+/* ============ DATA FITUR ============ */
+const FEATURES = [
+  {uc:"UC-01", icon:"🎬", title:"Melihat Pengenalan Aplikasi", cat:"pendukung", pane:"#pengenalan",
+   short:"Layar onboarding yang bisa digeser sebelum masuk.",
+   points:["Dua layar pengenalan yang dapat digeser","Tombol LOGIN, DAFTAR, dan Skip","Dapat dilihat tanpa akun"]},
+  {uc:"UC-02", icon:"🔑", title:"Masuk", cat:"akses", pane:"p-masuk",
+   short:"Masuk memakai telepon/email dan password.",
+   points:["Form telepon/email dan password","Mencocokkan password dengan hash","Membuat sesi lalu membuka layar utama","Pesan galat umum bila gagal"]},
+  {uc:"UC-03", icon:"🌐", title:"Masuk dengan Google", cat:"akses", pane:"p-masuk",
+   short:"Masuk cepat lewat akun Google.",
+   points:["Verifikasi dilakukan Layanan Google","Akun baru dibuat otomatis bila belum ada","Tanpa password_hash pada akun Google","Pesan jelas bila verifikasi gagal"]},
+  {uc:"UC-04", icon:"📝", title:"Daftar", cat:"akses", pane:"p-daftar",
+   short:"Membuat akun pembeli baru.",
+   points:["Lima kolom: nama, email, telepon, password, konfirmasi","Cek email/telepon yang sudah terdaftar","Password disimpan sebagai hash","Tautan Sudah punya akun? Masuk"]},
+  {uc:"UC-05", icon:"📧", title:"Lupa Password", cat:"bantuan", pane:"p-lupa",
+   short:"Memulihkan akun lewat tautan reset.",
+   points:["Tautan reset sekali pakai dan berkedaluwarsa","Dikirim lewat email atau SMS","Konfirmasi netral untuk semua kasus"]},
+  {uc:"UC-06", icon:"🛠️", title:"Laporkan Masalah Teknis", cat:"bantuan", pane:"p-lapor",
+   short:"Mengirim laporan kendala langsung dari aplikasi.",
+   points:["Kontak, jenis masalah, dan deskripsi","Status awal Baru dan waktu kirim tercatat","Konfirmasi laporan terkirim"]},
+  {uc:"UC-07", icon:"👁️", title:"Tampilkan / Sembunyikan Password", cat:"pendukung", pane:"p-masuk",
+   short:"Ikon mata untuk melihat password yang diketik.",
+   points:["Mengubah tampilan, bukan nilai","Tersedia di Sign In dan Sign Up","Ikon ikut berubah sesuai keadaan"]},
+  {uc:"UC-08", icon:"✅", title:"Validasi Data", cat:"pendukung", pane:"p-daftar",
+   short:"Memeriksa isian sebelum diproses.",
+   points:["Kolom wajib tidak boleh kosong","Format email, telepon, dan panjang password","Konfirmasi harus sama dengan password","Kolom bermasalah ditandai"]}
+];
+
+/* ============ UTILITAS ============ */
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+function toast(msg){
+  const t = $("#toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toast.id);
+  toast.id = setTimeout(() => t.classList.remove("show"), 2600);
+}
+
+/* ============ TEMA ============ */
+const root = document.documentElement;
+
+function setTheme(mode){
+  root.dataset.theme = mode;
+  $("#themeBtn").textContent = mode === "dark" ? "☀️" : "🌙";
+  try{ localStorage.setItem("da-theme", mode); }catch(e){}
+}
+
+(function initTheme(){
+  let saved = null;
+  try{ saved = localStorage.getItem("da-theme"); }catch(e){}
+  const prefersDark = matchMedia("(prefers-color-scheme: dark)").matches;
+  setTheme(saved || (prefersDark ? "dark" : "light"));
+})();
+
+$("#themeBtn").addEventListener("click", () => setTheme(root.dataset.theme === "dark" ? "light" : "dark"));
+
+/* ============ NAVIGASI ============ */
+const navLinks = $("#navLinks");
+const menuBtn  = $("#menuBtn");
+
+function setMenu(open){
+  navLinks.classList.toggle("open", open);
+  menuBtn.setAttribute("aria-expanded", open);
+}
+menuBtn.addEventListener("click", () => setMenu(!navLinks.classList.contains("open")));
+$$("a", navLinks).forEach(a => a.addEventListener("click", () => setMenu(false)));
+$("#year").textContent = new Date().getFullYear();
+
+const toTop = $("#toTop");
+addEventListener("scroll", () => toTop.classList.toggle("show", scrollY > 500), {passive:true});
+toTop.addEventListener("click", () => scrollTo({top:0, behavior:"smooth"}));
+
+/* Tandai menu aktif saat bagian terlihat di tengah layar */
+const menuObs = new IntersectionObserver(entries => entries.forEach(e => {
+  if(!e.isIntersecting) return;
+  $$("a", navLinks).forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#" + e.target.id));
+}), {rootMargin:"-45% 0px -50% 0px"});
+$$("main section[id]").forEach(s => menuObs.observe(s));
+
+/* ============ ANIMASI MUNCUL + HITUNG STATISTIK ============ */
+const revealObs = new IntersectionObserver(entries => entries.forEach(e => {
+  if(!e.isIntersecting) return;
+  e.target.classList.add("in");
+  revealObs.unobserve(e.target);
+}), {threshold:.12});
+
+function observeReveal(){
+  $$(".card,.step,.layer,.sec-item,.stat").forEach(el => {
+    el.classList.add("reveal");
+    revealObs.observe(el);
+  });
+}
+
+const countObs = new IntersectionObserver(entries => entries.forEach(e => {
+  if(!e.isIntersecting) return;
+  const el = e.target, end = +el.dataset.count;
+  let n = 0;
+  const tick = setInterval(() => {
+    el.textContent = ++n;
+    if(n >= end) clearInterval(tick);
+  }, 90);
+  countObs.unobserve(el);
+}), {threshold:.6});
+$$("[data-count]").forEach(el => countObs.observe(el));
+
+/* ============ KARTU FITUR + FILTER + PENCARIAN ============ */
+const grid = $("#featureGrid");
+grid.innerHTML = FEATURES.map((f, i) => `
+  <button class="card" data-i="${i}" data-cat="${f.cat}" data-text="${(f.title + " " + f.short + " " + f.uc).toLowerCase()}">
+    <div class="ico">${f.icon}</div>
+    <span class="uc">${f.uc}</span>
+    <h3>${f.title}</h3>
+    <p>${f.short}</p>
+  </button>`).join("");
+observeReveal();
+
+let activeFilter = "all";
+
+function applyFilter(){
+  const q = $("#search").value.trim().toLowerCase();
+  let shown = 0;
+  $$(".card", grid).forEach(c => {
+    const ok = (activeFilter === "all" || c.dataset.cat === activeFilter) && c.dataset.text.includes(q);
+    c.classList.toggle("hidden", !ok);
+    if(ok) shown++;
+  });
+  $("#empty").style.display = shown ? "none" : "block";
+}
+
+$("#filters").addEventListener("click", e => {
+  const chip = e.target.closest(".chip");
+  if(!chip) return;
+  $$(".chip").forEach(c => c.classList.remove("active"));
+  chip.classList.add("active");
+  activeFilter = chip.dataset.f;
+  applyFilter();
+});
+$("#search").addEventListener("input", applyFilter);
+
+/* ============ MODAL ============ */
+const modal = $("#modal");
+let modalTarget = "#demo";
+let lastFocus = null;
+
+grid.addEventListener("click", e => {
+  const card = e.target.closest(".card");
+  if(!card) return;
+  const f = FEATURES[card.dataset.i];
+  $("#mUc").textContent = f.uc;
+  $("#mTitle").textContent = f.title;
+  $("#mDesc").textContent = f.short;
+  $("#mList").innerHTML = f.points.map(p => `<li>${p}</li>`).join("");
+  modalTarget = f.pane;
+  lastFocus = card;
+  modal.classList.add("open");
+  $("#mClose").focus();
+});
+
+function closeModal(){
+  modal.classList.remove("open");
+  if(lastFocus) lastFocus.focus();
+}
+$("#mClose").addEventListener("click", closeModal);
+modal.addEventListener("click", e => { if(e.target === modal) closeModal(); });
+addEventListener("keydown", e => { if(e.key === "Escape" && modal.classList.contains("open")) closeModal(); });
+
+$("#mGo").addEventListener("click", e => {
+  e.preventDefault();
+  closeModal();
+  if(modalTarget.startsWith("p-")) switchTab(modalTarget);
+  const dest = modalTarget.startsWith("#") ? $(modalTarget) : $("#demo");
+  dest.scrollIntoView({behavior:"smooth"});
+});
+
+/* ============ TAB DEMO ============ */
+function switchTab(id){
+  $$(".tab").forEach(t => {
+    const on = t.dataset.pane === id;
+    t.classList.toggle("active", on);
+    t.setAttribute("aria-selected", on);
+  });
+  $$(".pane").forEach(p => p.classList.toggle("active", p.id === id));
+}
+$$(".tab").forEach(t => t.addEventListener("click", () => switchTab(t.dataset.pane)));
+
+/* ============ UC-07: IKON MATA ============ */
+function setEye(btn, visible){
+  $("#" + btn.dataset.eye).type = visible ? "text" : "password";
+  btn.textContent = visible ? "🙈" : "👁️";
+  btn.setAttribute("aria-label", visible ? "Sembunyikan password" : "Tampilkan password");
+}
+
+$$("[data-eye]").forEach(btn => btn.addEventListener("click", () => {
+  setEye(btn, $("#" + btn.dataset.eye).type === "password");
+}));
+
+/* ============ UC-08: VALIDASI ============ */
+const RE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const isPhone  = v => /^(\+62|62|0)8\d{8,11}$/.test(v.replace(/[\s-]/g, ""));
+
+const RULES = {
+  wajib:    v => v.trim() !== "" || "Kolom ini wajib diisi.",
+  email:    v => RE_EMAIL.test(v) || "Format email tidak valid.",
+  telepon:  v => isPhone(v) || "Gunakan nomor telepon Indonesia, mis. 08123456789.",
+  kontak:   v => RE_EMAIL.test(v) || isPhone(v) || "Isi email atau nomor telepon yang valid.",
+  password: v => v.length >= 8 || "Password minimal 8 karakter."
+};
+
+/** Validasi satu kolom, tandai kolomnya, kembalikan true bila valid. */
+function checkField(input, rules, extra){
+  const field = input.closest(".field");
+  let msg = "";
+  for(const r of rules){
+    const res = RULES[r](input.value);
+    if(res !== true){ msg = res; break; }
+  }
+  if(!msg && extra){
+    const res = extra(input.value);
+    if(res !== true) msg = res;
+  }
+  field.classList.toggle("invalid", !!msg);
+  field.classList.toggle("valid", !msg && input.value !== "");
+  $(".err-msg", field).textContent = msg;
+  return !msg;
+}
+
+function showResult(id, ok, text){
+  const r = $("#" + id);
+  r.className = "result show " + (ok ? "ok" : "bad");
+  r.textContent = text;
+}
+
+/** Kosongkan form: nilai, tanda valid, dan ikon mata kembali tersembunyi. */
+function resetForm(form){
+  form.reset();
+  $$(".field", form).forEach(f => f.classList.remove("valid", "invalid"));
+  $$("[data-eye]", form).forEach(b => setEye(b, false));
+}
+
+/* Hapus tanda galat saat pengguna mengetik */
+$$(".demo-panel input,.demo-panel select,.demo-panel textarea").forEach(el =>
+  el.addEventListener("input", () => el.closest(".field").classList.remove("invalid")));
+
+/* ---- Masuk (UC-02) ---- */
+$("#p-masuk").addEventListener("submit", e => {
+  e.preventDefault();
+  const k = $("#m-kontak"), p = $("#m-pass");
+  const ok = [checkField(k, ["wajib", "kontak"]), checkField(p, ["wajib"])].every(Boolean);
+  if(!ok){ showResult("m-result", false, "Lengkapi kolom yang ditandai."); return; }
+  const cocok = k.value.trim().toLowerCase() === "demo@dokterapps.id" && p.value === "Demo12345";
+  showResult("m-result", cocok,
+    cocok ? "Berhasil masuk. Sesi dibuat, membuka layar utama..." : "Telepon/email atau password tidak sesuai.");
+});
+
+/* ---- Google (UC-03), simulasi ---- */
+$("#googleBtn").addEventListener("click", () => {
+  showResult("m-result", true, "Simulasi: akun Google dipilih, verifikasi berhasil, sesi dibuat.");
+});
+
+/* ---- Daftar (UC-04) ---- */
+const dPass = $("#d-pass");
+const METER = [
+  ["0%",   "#dc2626", "Kekuatan password"],
+  ["25%",  "#dc2626", "Lemah"],
+  ["50%",  "#f59e0b", "Cukup"],
+  ["75%",  "#16a34a", "Kuat"],
+  ["100%", "#16a34a", "Sangat kuat"]
+];
+
+function updateMeter(){
+  const v = dPass.value;
+  const score = [v.length >= 8, /[A-Z]/.test(v), /\d/.test(v), /[^A-Za-z0-9]/.test(v)].filter(Boolean).length;
+  const [width, color, label] = METER[v ? score : 0];
+  const bar = $("#meterBar");
+  bar.style.width = width;
+  bar.style.background = color;
+  $("#meterLabel").textContent = label;
+}
+dPass.addEventListener("input", updateMeter);
+
+$("#p-daftar").addEventListener("submit", e => {
+  e.preventDefault();
+  const ok = [
+    checkField($("#d-nama"), ["wajib"]),
+    checkField($("#d-email"), ["wajib", "email"]),
+    checkField($("#d-tel"), ["wajib", "telepon"]),
+    checkField(dPass, ["wajib", "password"]),
+    checkField($("#d-konf"), ["wajib"], v => v === dPass.value || "Konfirmasi tidak sama dengan password.")
+  ].every(Boolean);
+  if(!ok){ showResult("d-result", false, "Masih ada isian yang perlu diperbaiki."); return; }
+  if($("#d-email").value.trim().toLowerCase() === "demo@dokterapps.id"){
+    showResult("d-result", false, "Email atau telepon sudah terdaftar. Ganti data atau pilih Masuk.");
+    return;
+  }
+  showResult("d-result", true, "Pendaftaran berhasil. Silakan masuk dengan akun baru Anda.");
+  resetForm(e.target);
+  updateMeter();
+});
+
+/* ---- Lupa password (UC-05) ---- */
+$("#p-lupa").addEventListener("submit", e => {
+  e.preventDefault();
+  if(!checkField($("#l-kontak"), ["wajib", "kontak"])){
+    showResult("l-result", false, "Isi telepon atau email yang valid.");
+    return;
+  }
+  showResult("l-result", true, "Jika data terdaftar, tautan reset akan dikirim. Periksa email atau SMS Anda.");
+});
+
+/* ---- Lapor masalah (UC-06) ---- */
+$("#p-lapor").addEventListener("submit", e => {
+  e.preventDefault();
+  const ok = [
+    checkField($("#r-kontak"), ["wajib", "kontak"]),
+    checkField($("#r-jenis"), ["wajib"]),
+    checkField($("#r-desk"), ["wajib"], v => v.trim().length >= 10 || "Jelaskan minimal 10 karakter.")
+  ].every(Boolean);
+  if(!ok){ showResult("r-result", false, "Lengkapi kolom yang ditandai."); return; }
+  showResult("r-result", true, "Laporan terkirim dengan status Baru. Terima kasih!");
+  resetForm(e.target);
+  toast("Laporan terkirim");
+});
+
+/* ============ SLIDER ONBOARDING (UC-01) ============ */
+(function slider(){
+  const track = $("#slides"), dots = $("#dots");
+  const total = $$(".slide").length;
+  let i = 0, startX = 0, inView = false;
+
+  dots.innerHTML = Array.from({length:total}, () => `<span class="dot"></span>`).join("");
+
+  function go(n){
+    i = (n + total) % total;
+    track.style.transform = `translateX(-${i * 100}%)`;
+    $$(".dot", dots).forEach((d, k) => d.classList.toggle("active", k === i));
+  }
+
+  $("#prev").addEventListener("click", () => go(i - 1));
+  $("#next").addEventListener("click", () => go(i + 1));
+  $$(".dot", dots).forEach((d, k) => d.addEventListener("click", () => go(k)));
+
+  track.addEventListener("touchstart", e => { startX = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener("touchend", e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 50) go(i + (dx < 0 ? 1 : -1));
+  });
+
+  /* Tombol panah hanya aktif saat slider terlihat dan fokus bukan di kolom isian */
+  new IntersectionObserver(([e]) => { inView = e.isIntersecting; }, {threshold:.4}).observe($("#slider"));
+  addEventListener("keydown", e => {
+    if(!inView || e.target.closest("input,textarea,select")) return;
+    if(e.key === "ArrowRight") go(i + 1);
+    if(e.key === "ArrowLeft")  go(i - 1);
+  });
+
+  go(0);
+})();
+</script>
 </body>
-
 </html>
