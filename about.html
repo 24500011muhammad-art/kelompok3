@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Kelompok</title>
+    <style>
+        :root {
+            --color-bg: #0f172a;
+            --color-card: #1e293b;
+            --color-accent: #38bdf8;
+            --color-text: #e2e8f0;
+            --color-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        main {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 48px 20px;
+        }
+
+        h1 {
+            color: var(--color-accent);
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            color: var(--color-muted);
+            margin-bottom: 32px;
+        }
+
+        .card {
+            background-color: var(--color-card);
+            border-left: 4px solid var(--color-accent);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .card h2 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .card ul {
+            padding-left: 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 24px;
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>Tentang Kelompok Kami</h1>
+        <p class="tagline">Satu repositori, banyak peran, satu tujuan.</p>
+
+        <section class="card">
+            <h2>Siapa Kami</h2>
+            <p>
+                Kami Kelompok 3, mahasiswa D3 Teknologi Informasi Tiga
+                Serangkai University. Seperti branch dalam Git, setiap
+                anggota punya peran sendiri, lalu karya kami digabung
+                menjadi satu website lewat Pull Request.
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>Visi</h2>
+            <p>
+                Menjadi tim yang rapi dalam berkode, terbuka dalam
+                berdiskusi, dan saling meninjau agar setiap kontribusi
+                berdampak bagi proyek bersama.
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>Yang Kami Pelajari</h2>
+            <ul>
+                <li>HTML dan CSS dasar</li>
+                <li>Git: commit, branch, dan merge</li>
+                <li>GitHub: Pull Request dan code review</li>
+            </ul>
+        </section>
+
+        <a class="back-link" href="index.html">Kembali ke Beranda</a>
+    </main>
+</body>
+
+</html>
